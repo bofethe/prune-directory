@@ -23,18 +23,20 @@ def prune_dir(days, path, item='file'):
 
     # loop through the directory
     for file_name in os.listdir(path):
-
         # get the path
         file_path = os.path.join(path, file_name)
+
         # check if the file has been modified within the time threshold
         if now - datetime.datetime.fromtimestamp(os.path.getmtime(file_path)) > threshold:
+
+            # Check the file case
             if item in ('file', 'all'):
                 if os.path.isfile(file_path):          
                     # delete the file
                     os.remove(file_path)
 
+            # Check the folder case
             if item in ('folder', 'all'):
-                # check if file is a folder
                 if os.path.isdir(file_path):
                     # delete old folder
                     shutil.rmtree(file_path)
